@@ -238,7 +238,7 @@ class Jco_Asciinema_Player_Admin {
 			'label'                 => __( 'Asciinema Cast', 'jco' ),
 			'description'           => __( 'Asciinema casts are command line recordings.', 'jco' ),
 			'labels'                => $labels,
-			'supports'              => array( 'title', 'comments', 'custom-fields','post-formats'),
+			'supports'              => array( 'title', 'comments', 'custom-fields'),
 			'taxonomies'            => array( 'category', 'post_tag' ),
 			'hierarchical'          => false,
 			'public'                => true,

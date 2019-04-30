@@ -54,6 +54,3 @@ $loop = new WP_Query( $mypost );
         <p><?php echo get_field('description');?></p>
     </header>
 </article>
-<?php endwhile;
-//get_sidebar();
-//get_footer();?>
