@@ -348,7 +348,7 @@ class Jco_Asciinema_Player_Admin {
 						'label' => 'Speed',
 						'name' => 'speed',
 						'type' => 'number',
-						'instructions' => __('Playback speed. Default is 1 (normal speed). 2 means 2x faster.','jco')
+						'instructions' => __('Playback speed. Default is 1 (normal speed). 2 means 2x faster.','jco'),
 						'default_value' => 1,
 						'placeholder' => 1,
 						'prepend' => '',
