@@ -8,13 +8,13 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              https://jessecowens.com
+ * @link              https://jco.dev
  * @since             1.0.0
  * @package           Jco_Asciinema_Player
  *
  * @wordpress-plugin
  * Plugin Name:       Asciinema Player
- * Plugin URI:        https://linux-goals.com
+ * Plugin URI:        https://jco.dev
  * Description:       A Plugin To Host Asciinema Recordings. See the official <a href="https://asciinema.org/docs/installation">Asciinema site</a> for details on how to record terminal sessions
  * Version:           1.0.0
  * Author:            Jesse C Owens
@@ -35,7 +35,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'JCO_ASCIINEMA_PLAYER_VERSION', '1.0.0' );
+define( 'JCO_ASCIINEMA_PLAYER_VERSION', '1.0.1' );
 
 /**
  * The code that runs during plugin activation.
