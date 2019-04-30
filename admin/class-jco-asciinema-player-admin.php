@@ -74,8 +74,8 @@ class Jco_Asciinema_Player_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/jco-asciinema-player-admin.css', array(), $this->version, 'all' );
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . '../includes/css/asciinema-player.js', array(), $this->version, 'all' );
+		//wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/jco-asciinema-player-admin.css', array(), $this->version, 'all' );
+		//wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . '../includes/css/asciinema-player.js', array(), $this->version, 'all' );
 	}
 
 	/**
@@ -97,8 +97,8 @@ class Jco_Asciinema_Player_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/jco-asciinema-player-admin.js', array( 'jquery' ), $this->version, false );
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . '../includes/js/asciinema-player.js', array(), $this->version, true );
+		//wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/jco-asciinema-player-admin.js', array( 'jquery' ), $this->version, false );
+		//wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . '../includes/js/asciinema-player.js', array(), $this->version, true );
 
 	}
 
@@ -143,13 +143,13 @@ class Jco_Asciinema_Player_Admin {
 			"font_size" => get_field('font_size', $attributes['id'])
 		);
 
-	$player_tag = "<asciinema-player src=\"{$playback_options['src']}\"  
-					cols=\"{$playback_options['cols']}\" 
-					rows=\"{$playback_options['rows']}\" 
-					start-at=\"{$playback_options['start_at']}\" 
-					speed=\"{$playback_options['speed']}\" 
-					idle-time-limit=\"{$playback_options['idle_time_limit']}\" 
-					font-size=\"{$playback_options['font-size']}\" 
+	$player_tag = "<asciinema-player src=\"{$playback_options['src']}\"
+					cols=\"{$playback_options['cols']}\"
+					rows=\"{$playback_options['rows']}\"
+					start-at=\"{$playback_options['start_at']}\"
+					speed=\"{$playback_options['speed']}\"
+					idle-time-limit=\"{$playback_options['idle_time_limit']}\"
+					font-size=\"{$playback_options['font-size']}\"
 					theme=\"{$playback_options['theme']}\" ";
 	if ($playback_options['autoplay']) {
 		$player_tag .= "autoplay=\"true\" ";
@@ -164,20 +164,6 @@ class Jco_Asciinema_Player_Admin {
 	}
 
 	$player_tag .= "></asciinema-player>";
-	/* <asciinema-player src="<?php echo $playback_options['src']; ?>"
-	                  cols="<?php echo $playback_options['cols']; ?>"
-	                  rows="<?php echo $playback_options['rows']; ?>"
-		<?php if ($playback_options['autoplay']) { echo 'autoplay="true" '; } ?>
-		<?php if ($playback_options['loop']) { echo 'loop="true"'; } ?>
-		              start-at="<?php echo $playback_options['start_at']; ?>"
-		              speed="<?php echo $playback_options['speed']; ?>"
-		              idle-time-limit="<?php echo $playback_options['idle_time_limit']; ?>"
-		              poster="<?php if ($playback_options['poster_text']) { echo 'data:text/plain,' . $playback_options['poster_text']; } else {echo 'npt:' . $playback_options['poster_time']; } ?>"
-		              font-size="<?php echo $playback_options['font_size']; ?>"
-		              theme="<?php echo $playback_options['theme']; ?>"
-
-	></asciinema-player>
-	*/
 		return $player_tag;
 
 	}
