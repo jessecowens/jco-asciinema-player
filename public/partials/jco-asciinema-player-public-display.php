@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Template Name: New Template
+ * Template Name: JCO Asciinema Single
  *
  * Provide a public-facing view for the plugin
  *
