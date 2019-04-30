@@ -146,7 +146,7 @@ class Jco_Asciinema_Player_Admin {
 					start-at=\"{$playback_options['start_at']}\"
 					speed=\"{$playback_options['speed']}\"
 					idle-time-limit=\"{$playback_options['idle_time_limit']}\"
-					font-size=\"{$playback_options['font-size']}\"
+					font-size=\"{$playback_options['font_size']}\"
 					theme=\"{$playback_options['theme']}\" ";
 	if ($playback_options['autoplay']) {
 		$player_tag .= "autoplay=\"true\" ";
