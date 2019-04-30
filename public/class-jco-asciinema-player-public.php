@@ -96,8 +96,7 @@ class Jco_Asciinema_Player_Public {
 		 * class.
 		 */
 
-		//wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/jco-asciinema-player-public.js', array( 'jquery' ), $this->version, false );
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/asciinema-player.js', array(), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/jco-asciinema-player-public.js', array(), $this->version, false );
 	}
 
 	/**
@@ -114,6 +113,6 @@ class Jco_Asciinema_Player_Public {
 		return $template_path;
 	}
 
-	
+
 
 }
