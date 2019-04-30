@@ -190,7 +190,7 @@ class Jco_Asciinema_Player_Admin {
 		if ( $screen->post_type == 'jco_asciinema_post' ) {
 			$post = get_post();
 			echo '<h3>Insert this Asciinema with shortcode: [asciinema id="'. $post->ID . '"]</h3>';
-			if !( get_post_status ($post->ID) == 'auto-draft') {
+			if ( get_post_status($post->ID) != 'auto-draft') {
 			echo $this->handle_asciinema_shortcode($post->ID);
 		} else {
 			//silence
