@@ -252,7 +252,7 @@ class Jco_Asciinema_Player_Admin {
 			'has_archive'           => false,
 			'exclude_from_search'   => false,
 			'publicly_queryable'    => true,
-			'capability_type'       => 'attachment',
+			'capability_type'       => 'post',
 			'show_in_rest'          => true,
 		);
 		register_post_type( 'jco_asciinema_post', $args );
