@@ -242,7 +242,7 @@ class Jco_Asciinema_Player_Admin {
 			'taxonomies'            => array( 'category', 'post_tag' ),
 			'hierarchical'          => false,
 			'public'                => false,
-			'show_ui'               => false,
+			'show_ui'               => true,
 			'show_in_menu'          => 'upload.php',
 			'menu_position'         => 80,
 			'menu_icon'             => 'dashicons-welcome-view-site',
