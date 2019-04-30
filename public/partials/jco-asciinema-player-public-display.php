@@ -18,7 +18,7 @@
 $mypost = array( 'post_type' => 'jco_asciinema_post' );
 $loop = new WP_Query( $mypost );
 
-while ( $loop->have_posts() ) : $loop->the_post();
+//while ( $loop->have_posts() ) : $loop->the_post();
 	$file = get_field('asciienma_file');
 	$playback_options = array(
 	        "src" => $file['url'],
