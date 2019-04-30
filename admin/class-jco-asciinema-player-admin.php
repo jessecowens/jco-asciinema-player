@@ -75,7 +75,6 @@ class Jco_Asciinema_Player_Admin {
 		 */
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/jco-asciinema-player-admin.css', array(), $this->version, 'all' );
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . '../includes/css/asciinema-player.js', array(), $this->version, 'all' );
 	}
 
 	/**
@@ -97,9 +96,7 @@ class Jco_Asciinema_Player_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/jco-asciinema-player-admin.js', array( 'jquery' ), $this->version, false );
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . '../includes/js/asciinema-player.js', array(), $this->version, true );
-
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/jco-asciinema-player-admin.js', array(), $this->version, false );
 	}
 
 	/**
@@ -143,13 +140,13 @@ class Jco_Asciinema_Player_Admin {
 			"font_size" => get_field('font_size', $attributes['id'])
 		);
 
-	$player_tag = "<asciinema-player src=\"{$playback_options['src']}\"  
-					cols=\"{$playback_options['cols']}\" 
-					rows=\"{$playback_options['rows']}\" 
-					start-at=\"{$playback_options['start_at']}\" 
-					speed=\"{$playback_options['speed']}\" 
-					idle-time-limit=\"{$playback_options['idle_time_limit']}\" 
-					font-size=\"{$playback_options['font-size']}\" 
+	$player_tag = "<asciinema-player src=\"{$playback_options['src']}\"
+					cols=\"{$playback_options['cols']}\"
+					rows=\"{$playback_options['rows']}\"
+					start-at=\"{$playback_options['start_at']}\"
+					speed=\"{$playback_options['speed']}\"
+					idle-time-limit=\"{$playback_options['idle_time_limit']}\"
+					font-size=\"{$playback_options['font_size']}\"
 					theme=\"{$playback_options['theme']}\" ";
 	if ($playback_options['autoplay']) {
 		$player_tag .= "autoplay=\"true\" ";
@@ -164,20 +161,6 @@ class Jco_Asciinema_Player_Admin {
 	}
 
 	$player_tag .= "></asciinema-player>";
-	/* <asciinema-player src="<?php echo $playback_options['src']; ?>"
-	                  cols="<?php echo $playback_options['cols']; ?>"
-	                  rows="<?php echo $playback_options['rows']; ?>"
-		<?php if ($playback_options['autoplay']) { echo 'autoplay="true" '; } ?>
-		<?php if ($playback_options['loop']) { echo 'loop="true"'; } ?>
-		              start-at="<?php echo $playback_options['start_at']; ?>"
-		              speed="<?php echo $playback_options['speed']; ?>"
-		              idle-time-limit="<?php echo $playback_options['idle_time_limit']; ?>"
-		              poster="<?php if ($playback_options['poster_text']) { echo 'data:text/plain,' . $playback_options['poster_text']; } else {echo 'npt:' . $playback_options['poster_time']; } ?>"
-		              font-size="<?php echo $playback_options['font_size']; ?>"
-		              theme="<?php echo $playback_options['theme']; ?>"
-
-	></asciinema-player>
-	*/
 		return $player_tag;
 
 	}
@@ -196,7 +179,6 @@ class Jco_Asciinema_Player_Admin {
 		if ( current_user_can('activate_plugins' ) ) {
 			$mime_types['json'] = 'application/json';
 		}
-		//wp_die( var_dump($mime_types) );
 		return $mime_types;
 	}
 
@@ -207,7 +189,12 @@ class Jco_Asciinema_Player_Admin {
 		$screen = get_current_screen();
 		if ( $screen->post_type == 'jco_asciinema_post' ) {
 			$post = get_post();
-			echo '<p><strong>Insert this Asciinema with shortcode: [asciinema id="'. $post->ID . '"]</strong></p>';
+			echo '<h3>Insert this Asciinema with shortcode: [asciinema id="'. $post->ID . '"]</h3>';
+			if ( get_post_status($post->ID) != 'auto-draft') {
+				echo $this->handle_asciinema_shortcode($post->ID);
+		} else {
+			//silence
+		}
 		}
 	}
 
@@ -251,7 +238,7 @@ class Jco_Asciinema_Player_Admin {
 			'label'                 => __( 'Asciinema Cast', 'jco' ),
 			'description'           => __( 'Asciinema casts are command line recordings.', 'jco' ),
 			'labels'                => $labels,
-			'supports'              => array( 'title', 'comments'),
+			'supports'              => array( 'title', 'comments', 'custom-fields'),
 			'taxonomies'            => array( 'category', 'post_tag' ),
 			'hierarchical'          => false,
 			'public'                => true,
@@ -262,11 +249,11 @@ class Jco_Asciinema_Player_Admin {
 			'show_in_admin_bar'     => false,
 			'show_in_nav_menus'     => false,
 			'can_export'            => true,
-			'has_archive'           => true,
+			'has_archive'           => false,
 			'exclude_from_search'   => false,
 			'publicly_queryable'    => true,
 			'capability_type'       => 'post',
-			'show_in_rest'          => false,
+			'show_in_rest'          => true,
 		);
 		register_post_type( 'jco_asciinema_post', $args );
 		$this->create_asciinema_fields();
@@ -281,20 +268,20 @@ class Jco_Asciinema_Player_Admin {
 				'fields' => array (
 					array (
 						'key' => 'field_5af84e4a11c8d',
-						'label' => 'Asciienma File',
+						'label' => __('Asciienma File','jco'),
 						'name' => 'asciienma_file',
 						'type' => 'file',
-						'instructions' => 'Upload the Asciinema JSON file here.',
+						'instructions' => __('Upload the Asciinema JSON file here.','jco'),
 						'required' => 1,
 						'save_format' => 'object',
 						'library' => 'all',
 					),
 					array (
 						'key' => 'field_5af85223f0f63',
-						'label' => 'Description',
+						'label' => __('Description','jco'),
 						'name' => 'description',
 						'type' => 'textarea',
-						'instructions' => 'Enter an SEO-Friendly description for this Asciinema. (max 256 chars)',
+						'instructions' => __('Enter an SEO-Friendly description for this Asciinema. (max 256 chars)','jco'),
 						'default_value' => '',
 						'placeholder' => '',
 						'maxlength' => 256,
@@ -303,10 +290,10 @@ class Jco_Asciinema_Player_Admin {
 					),
 					array (
 						'key' => 'field_5af850e97fec9',
-						'label' => 'Columns',
+						'label' => __('Columns','jco'),
 						'name' => 'columns',
 						'type' => 'number',
-						'instructions' => 'The number of columns to display (default 80)',
+						'instructions' => __('The number of columns to display (default 80)','jco'),
 						'default_value' => 80,
 						'placeholder' => 80,
 						'prepend' => '',
@@ -317,10 +304,10 @@ class Jco_Asciinema_Player_Admin {
 					),
 					array (
 						'key' => 'field_5af8518c7fecb',
-						'label' => 'Rows',
+						'label' => __('Rows','jco'),
 						'name' => 'rows',
 						'type' => 'number',
-						'instructions' => 'The number of rows to display (default 24)',
+						'instructions' => __('The number of rows to display (default 24)','jco'),
 						'default_value' => 24,
 						'placeholder' => 24,
 						'prepend' => '',
@@ -331,28 +318,28 @@ class Jco_Asciinema_Player_Admin {
 					),
 					array (
 						'key' => 'field_5af851b97fecc',
-						'label' => 'Autoplay?',
+						'label' => __('Autoplay?','jco'),
 						'name' => 'autoplay',
 						'type' => 'true_false',
-						'instructions' => 'Set this to true for playback to start automatically. (Default: false)',
+						'instructions' => __('Set this to true for playback to start automatically. (Default: false)','jco'),
 						'message' => '',
 						'default_value' => 0,
 					),
 					array (
 						'key' => 'field_5af85294f0f64',
-						'label' => 'Loop?',
+						'label' => __('Loop?','jco'),
 						'name' => 'loop',
 						'type' => 'true_false',
-						'instructions' => 'Set this to true for playback to continuously loop.. (Default: false)',
+						'instructions' => __('Set this to true for playback to continuously loop.. (Default: false)','jco'),
 						'message' => '',
 						'default_value' => 0,
 					),
 					array (
 						'key' => 'field_5af852e9f0f65',
-						'label' => 'Start At?',
+						'label' => __('Start At?','jco'),
 						'name' => 'start_at',
 						'type' => 'number',
-						'instructions' => 'Start playback at a given time in seconds.',
+						'instructions' => __('Start playback at a given time in seconds.','jco'),
 						'default_value' => 0,
 						'placeholder' => 0,
 						'prepend' => '',
@@ -366,7 +353,7 @@ class Jco_Asciinema_Player_Admin {
 						'label' => 'Speed',
 						'name' => 'speed',
 						'type' => 'number',
-						'instructions' => 'Playback speed. Default is 1 (normal speed). 2 means 2x faster.',
+						'instructions' => __('Playback speed. Default is 1 (normal speed). 2 means 2x faster.','jco'),
 						'default_value' => 1,
 						'placeholder' => 1,
 						'prepend' => '',
@@ -377,10 +364,10 @@ class Jco_Asciinema_Player_Admin {
 					),
 					array (
 						'key' => 'field_5af8559bf0f67',
-						'label' => 'Idle Time Limit',
+						'label' => __('Idle Time Limit','jco'),
 						'name' => 'idle_time_limit',
 						'type' => 'number',
-						'instructions' => 'Limit inactivity to a given number of seconds. For example, any inactivity longer than 2 seconds will be "compressed" to 2 seconds. Default is unlimited.',
+						'instructions' => __('Limit inactivity to a given number of seconds. For example, any inactivity longer than 2 seconds will be "compressed" to 2 seconds. Default is unlimited.','jco'),
 						'default_value' => '',
 						'placeholder' => '',
 						'prepend' => '',
@@ -391,10 +378,10 @@ class Jco_Asciinema_Player_Admin {
 					),
 					array (
 						'key' => 'field_5af856a5f0f69',
-						'label' => 'Poster Type',
+						'label' => __('Poster Type','jco'),
 						'name' => 'poster_type',
 						'type' => 'radio',
-						'instructions' => 'Choose a time or create a custom poster. Defaults to the the start time.',
+						'instructions' => __('Choose a time or create a custom poster. Defaults to the the start time.','jco'),
 						'choices' => array (
 							'Time' => 'Time',
 							'Custom Text' => 'Custom Text',
@@ -406,10 +393,10 @@ class Jco_Asciinema_Player_Admin {
 					),
 					array (
 						'key' => 'field_5af85668f0f68',
-						'label' => 'Poster Time',
+						'label' => __('Poster Time','jco'),
 						'name' => 'poster_time',
 						'type' => 'text',
-						'instructions' => 'The time, in the format MM:SS, to use for the preview thumbnail.',
+						'instructions' => __('The time, in the format MM:SS, to use for the preview thumbnail.','jco'),
 						'conditional_logic' => array (
 							'status' => 1,
 							'rules' => array (
@@ -430,11 +417,11 @@ class Jco_Asciinema_Player_Admin {
 					),
 					array (
 						'key' => 'field_5af85799f0f6a',
-						'label' => 'Poster Text',
+						'label' => __('Poster Text','jco'),
 						'name' => 'poster_text',
 						'type' => 'text',
-						'instructions' => 'Enter custom text to use as the preview. ANSI escape codes can be used to add color and move the cursor. For example:
-	I\'m regular \\x1b[1;32mI\'m bold green\\x1b[3BI\'m 3 lines down',
+						'instructions' => __('Enter custom text to use as the preview. ANSI escape codes can be used to add color and move the cursor. For example:
+	I\'m regular \\x1b[1;32mI\'m bold green\\x1b[3BI\'m 3 lines down','jco'),
 						'conditional_logic' => array (
 							'status' => 1,
 							'rules' => array (
@@ -455,16 +442,16 @@ class Jco_Asciinema_Player_Admin {
 					),
 					array (
 						'key' => 'field_5af85890f0f6b',
-						'label' => 'Theme',
+						'label' => __('Theme','jco'),
 						'name' => 'theme',
 						'type' => 'select',
-						'instructions' => 'Choose the theme for this Asciinema.',
+						'instructions' => __('Choose the theme for this Asciinema.','jco'),
 						'choices' => array (
-							'asciinema' => 'Asciinema',
-							'tango' => 'Tango',
-							'solarized-dark' => 'Solarized Dark',
-							'solarized-light' => 'Solarized Light',
-							'monokai' => 'Monokai',
+							'asciinema' => __('Asciinema','jco'),
+							'tango' => __('Tango','jco'),
+							'solarized-dark' => __('Solarized Dark','jco'),
+							'solarized-light' => __('Solarized Light','jco'),
+							'monokai' => __('Monokai','jco'),
 						),
 						'default_value' => 'asciinema',
 						'allow_null' => 0,
@@ -472,10 +459,10 @@ class Jco_Asciinema_Player_Admin {
 					),
 					array (
 						'key' => 'field_5af85a5eb21d6',
-						'label' => 'Font Size',
+						'label' => __('Font Size','jco'),
 						'name' => 'font_size',
 						'type' => 'select',
-						'instructions' => 'Choose a Font Size for Playback',
+						'instructions' => __('Choose a Font Size for Playback','jco'),
 						'choices' => array (
 							'small' => 'Small',
 							'medium' => 'Medium',

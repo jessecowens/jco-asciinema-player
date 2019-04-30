@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Template Name: New Template
+ * Template Name: JCO Asciinema Single
  *
  * Provide a public-facing view for the plugin
  *
@@ -13,13 +13,10 @@
  * @package    Jco_Asciinema_Player
  * @subpackage Jco_Asciinema_Player/public/partials
  */
-?>
-<?php
-get_header();
+
 $mypost = array( 'post_type' => 'jco_asciinema_post' );
 $loop = new WP_Query( $mypost );
 
-while ( $loop->have_posts() ) : $loop->the_post();
 	$file = get_field('asciienma_file');
 	$playback_options = array(
 	        "src" => $file['url'],
@@ -55,6 +52,3 @@ while ( $loop->have_posts() ) : $loop->the_post();
         <p><?php echo get_field('description');?></p>
     </header>
 </article>
-<?php endwhile;
-get_sidebar();
-get_footer();?>

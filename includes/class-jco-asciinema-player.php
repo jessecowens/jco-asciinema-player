@@ -126,7 +126,7 @@ class Jco_Asciinema_Player {
 		 * Include the Advanced Custom Fields Plugin. Comment out the define statement to enable the ACF Interface.
 		 */
 		define( 'ACF_LITE', true );
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/advanced-custom-fields/acf.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/acf/acf.php';
 
 		$this->loader = new Jco_Asciinema_Player_Loader();
 
@@ -162,7 +162,7 @@ class Jco_Asciinema_Player {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-		
+
 		$this->loader->add_action( 'init', $plugin_admin, 'create_asciinema_post');
 		$this->loader->add_action( 'init', $plugin_admin, 'create_asciinema_shortcode' );
 

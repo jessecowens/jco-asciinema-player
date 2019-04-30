@@ -1,0 +1,4 @@
+[submodule "includes/acf"]
+	path = includes/acf
+	url = https://github.com/AdvancedCustomFields/acf.git
+	branch = master
