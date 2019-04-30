@@ -242,7 +242,7 @@ class Jco_Asciinema_Player_Admin {
 			'taxonomies'            => array( 'category', 'post_tag' ),
 			'hierarchical'          => false,
 			'public'                => false,
-			'show_ui'               => true,
+			'show_ui'               => false,
 			'show_in_menu'          => 'upload.php',
 			'menu_position'         => 80,
 			'menu_icon'             => 'dashicons-welcome-view-site',
@@ -251,7 +251,7 @@ class Jco_Asciinema_Player_Admin {
 			'can_export'            => true,
 			'has_archive'           => false,
 			'exclude_from_search'   => false,
-			'publicly_queryable'    => true,
+			'publicly_queryable'    => false,
 			'capability_type'       => 'post',
 			'show_in_rest'          => false,
 		);
