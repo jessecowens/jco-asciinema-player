@@ -40,6 +40,7 @@
  * This plugin is also inspired by and/or uses code from the following plugins/libraries:
  *
  * Advanced Custom Fields[https://github.com/AdvancedCustomFields/acf]
+ * asciinema-player v2.6.1[https://asciinema.org/]
  */
 
 // If this file is called directly, abort.
