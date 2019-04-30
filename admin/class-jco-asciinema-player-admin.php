@@ -189,8 +189,12 @@ class Jco_Asciinema_Player_Admin {
 		$screen = get_current_screen();
 		if ( $screen->post_type == 'jco_asciinema_post' ) {
 			$post = get_post();
-			echo '<p><strong>Insert this Asciinema with shortcode: [asciinema id="'. $post->ID . '"]</strong></p>';
+			echo '<h3>Insert this Asciinema with shortcode: [asciinema id="'. $post->ID . '"]</h3>';
+			if !( get_post_status ($post->ID) == 'auto-draft') {
 			echo $this->handle_asciinema_shortcode($post->ID);
+		} else {
+			//silence
+		}
 		}
 	}
 
@@ -234,7 +238,7 @@ class Jco_Asciinema_Player_Admin {
 			'label'                 => __( 'Asciinema Cast', 'jco' ),
 			'description'           => __( 'Asciinema casts are command line recordings.', 'jco' ),
 			'labels'                => $labels,
-			'supports'              => array( 'title', 'comments'),
+			'supports'              => array( 'title', 'comments', 'custom-fields','post-formats'),
 			'taxonomies'            => array( 'category', 'post_tag' ),
 			'hierarchical'          => false,
 			'public'                => true,
