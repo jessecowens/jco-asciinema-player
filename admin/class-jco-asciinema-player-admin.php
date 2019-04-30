@@ -241,7 +241,7 @@ class Jco_Asciinema_Player_Admin {
 			'supports'              => array( 'title', 'comments', 'custom-fields','post-formats'),
 			'taxonomies'            => array( 'category', 'post_tag' ),
 			'hierarchical'          => false,
-			'public'                => false,
+			'public'                => true,
 			'show_ui'               => true,
 			'show_in_menu'          => 'upload.php',
 			'menu_position'         => 80,
@@ -251,9 +251,9 @@ class Jco_Asciinema_Player_Admin {
 			'can_export'            => true,
 			'has_archive'           => false,
 			'exclude_from_search'   => false,
-			'publicly_queryable'    => false,
+			'publicly_queryable'    => true,
 			'capability_type'       => 'attachment',
-			'show_in_rest'          => false,
+			'show_in_rest'          => true,
 		);
 		register_post_type( 'jco_asciinema_post', $args );
 		$this->create_asciinema_fields();
