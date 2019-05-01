@@ -21,7 +21,7 @@
  * Author URI:        https://jessecowens.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       jco
+ * Text Domain:       jco-asciinema-player
  * Domain Path:       /languages
  *
  * JCO Asciinema Player is free software: you can redistribute it and/or modify
