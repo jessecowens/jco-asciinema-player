@@ -13,6 +13,7 @@
  * @package    Jco_Asciinema_Player
  * @subpackage Jco_Asciinema_Player/public/partials
  */
+get_header();
 
 $mypost = array( 'post_type' => 'jco_asciinema_post' );
 $loop = new WP_Query( $mypost );
@@ -52,3 +53,5 @@ $loop = new WP_Query( $mypost );
         <p><?php echo get_field('description');?></p>
     </header>
 </article>
+<?php get_sidebar();
+get_footer();
