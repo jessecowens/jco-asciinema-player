@@ -21,6 +21,8 @@ site. Look for the "Asciinemas" option in your Media menu.
 * Activate the plugin through the Plugins menu in WordPress.
 
 == Changelog ==
+= 1.0.2 =
+* Only include Scripts and Styles on posts with Asciinemas
 
 = 1.0.1 =
 * Updates to documentation and README.
