@@ -122,7 +122,7 @@ class Jco_Asciinema_Player_Admin {
 			),
 			$atts
 		);
-
+		if ( function_exists('get_field')) {
 		$file = get_field('asciienma_file', $attributes['id']);
 		$playback_options = array(
 			"src" => $file['url'],
@@ -139,6 +139,7 @@ class Jco_Asciinema_Player_Admin {
 			"theme" => get_field('theme', $attributes['id']),
 			"font_size" => get_field('font_size', $attributes['id'])
 		);
+
 
 	$player_tag = "<asciinema-player src=\"{$playback_options['src']}\"
 					cols=\"{$playback_options['cols']}\"
@@ -162,6 +163,9 @@ class Jco_Asciinema_Player_Admin {
 
 	$player_tag .= "></asciinema-player>";
 		return $player_tag;
+	} else {
+		return '<p>Asciinema posts are not loading correctly.</p>';
+	}
 
 	}
 

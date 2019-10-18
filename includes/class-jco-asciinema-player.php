@@ -70,7 +70,7 @@ class Jco_Asciinema_Player {
 		if ( defined( 'JCO_ASCIINEMA_PLAYER_VERSION' ) ) {
 			$this->version = JCO_ASCIINEMA_PLAYER_VERSION;
 		} else {
-			$this->version = '1.0.0';
+			$this->version = '1.0.3';
 		}
 		$this->plugin_name = 'jco-asciinema-player';
 
@@ -125,9 +125,10 @@ class Jco_Asciinema_Player {
 		/**
 		 * Include the Advanced Custom Fields Plugin. Comment out the define statement to enable the ACF Interface.
 		 */
-		define( 'ACF_LITE', true );
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/acf/acf.php';
-
+		if ( ! class_exists('ACF') ) {
+			define( 'ACF_LITE', true );
+			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/acf/acf.php';
+		}
 		$this->loader = new Jco_Asciinema_Player_Loader();
 
 	}
