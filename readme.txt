@@ -4,7 +4,7 @@ Donate link: https://jco.dev
 Tags: media,cpt,asciinema,unix
 Requires at least: 3.0.1
 Tested up to: 5.2.2
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,6 +21,10 @@ site. Look for the "Asciinemas" option in your Media menu.
 * Activate the plugin through the Plugins menu in WordPress.
 
 == Changelog ==
+
+= 1.0.4 =
+* Update to ACF Library
+* Update to versioning nomenclature
 
 = 1.0.3 =
 * Update to ACF library.
