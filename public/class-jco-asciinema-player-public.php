@@ -73,7 +73,7 @@ class Jco_Asciinema_Player_Public {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/jco-asciinema-player-public.css', array(), $this->version, 'all' );
+		wp_register_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/jco-asciinema-player-public.css', array(), $this->version, 'all' );
 	}
 
 	/**
@@ -95,7 +95,7 @@ class Jco_Asciinema_Player_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/jco-asciinema-player-public.js', array(), $this->version, false );
+		wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/jco-asciinema-player-public.js', array(), $this->version, true );
 	}
 
 	/**
@@ -106,6 +106,7 @@ class Jco_Asciinema_Player_Public {
 	 * @return string
 	 */
 	public function asciinema_display( $template_path ) {
+		global $wp_query, $post;
 		if ( get_post_type() == 'jco_asciinema_post' ) {
 			$template_path = plugin_dir_path( __FILE__ ) . '/partials/jco-asciinema-player-public-display.php';
 		}

@@ -187,7 +187,7 @@ class Jco_Asciinema_Player {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-		$this->loader->add_filter( 'template_include', $plugin_public, 'asciinema_display', 99,1);
+		$this->loader->add_filter( 'single_template', $plugin_public, 'asciinema_display', 10 , 1);
 	}
 
 	/**

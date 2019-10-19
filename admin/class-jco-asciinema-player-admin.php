@@ -74,7 +74,7 @@ class Jco_Asciinema_Player_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/jco-asciinema-player-admin.css', array(), $this->version, 'all' );
+		wp_register_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/jco-asciinema-player-admin.css', array(), $this->version, 'all' );
 	}
 
 	/**
@@ -96,7 +96,7 @@ class Jco_Asciinema_Player_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/jco-asciinema-player-admin.js', array(), $this->version, false );
+		wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/jco-asciinema-player-admin.js', array(), $this->version, true );
 	}
 
 	/**
@@ -115,6 +115,8 @@ class Jco_Asciinema_Player_Admin {
 	 */
 	public function handle_asciinema_shortcode( $atts ) {
 
+		wp_enqueue_script( $this->plugin_name );
+		wp_enqueue_style( $this->plugin_name );
 		// Attributes
 		$attributes = shortcode_atts(
 			array(
@@ -181,7 +183,8 @@ class Jco_Asciinema_Player_Admin {
 	 */
 	public function add_json_mime( $mime_types ) {
 		if ( current_user_can('activate_plugins' ) ) {
-			$mime_types['json'] = 'application/json';
+			$mime_types['json'] = 'text/plain';
+			$mime_types['cast'] = 'text/plain';
 		}
 		return $mime_types;
 	}
@@ -258,6 +261,7 @@ class Jco_Asciinema_Player_Admin {
 			'publicly_queryable'    => true,
 			'capability_type'       => 'post',
 			'show_in_rest'          => true,
+			'rewrite'								=> array('slug' => 'asciinemas'),
 		);
 		register_post_type( 'jco_asciinema_post', $args );
 		$this->create_asciinema_fields();

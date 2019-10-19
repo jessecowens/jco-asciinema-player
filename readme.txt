@@ -1,6 +1,6 @@
 === Asciinema Player ===
 Contributors: jessecowens
-Donate link: https://jco.dev
+Donate link: https://jco.dev/asciinema-player-for-wordpress/
 Tags: media,cpt,asciinema,unix
 Requires at least: 3.0.1
 Tested up to: 5.2.2
