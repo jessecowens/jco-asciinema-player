@@ -41,6 +41,6 @@ while ( have_posts() ) : the_post();
 endwhile;
 
 if ( ! class_exists( 'BoldGrid' ) ) {
-get_footer();
+	get_footer();
 }
-  ?>
+?>

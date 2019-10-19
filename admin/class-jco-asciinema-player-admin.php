@@ -74,7 +74,7 @@ class Jco_Asciinema_Player_Admin {
 		 * class.
 		 */
 
-		wp_register_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/jco-asciinema-player-admin.css', array(), $this->version, 'all' );
+		wp_register_style( $this->plugin_name, plugin_dir_url( __DIR__ ) . 'includes/asciinema-player/css/asciinema-player.css', array(), $this->version, 'all' );
 	}
 
 	/**
@@ -96,7 +96,7 @@ class Jco_Asciinema_Player_Admin {
 		 * class.
 		 */
 
-		wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/jco-asciinema-player-admin.js', array(), $this->version, true );
+		wp_register_script( $this->plugin_name, plugin_dir_url( __DIR__ ) . 'includes/asciinema-player/js/asciinema-player.js', array(), $this->version, true );
 	}
 
 	/**
