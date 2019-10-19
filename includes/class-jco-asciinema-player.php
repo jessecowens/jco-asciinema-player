@@ -70,7 +70,7 @@ class Jco_Asciinema_Player {
 		if ( defined( 'JCO_ASCIINEMA_PLAYER_VERSION' ) ) {
 			$this->version = JCO_ASCIINEMA_PLAYER_VERSION;
 		} else {
-			$this->version = '1.0.4';
+			$this->version = '1.0.5';
 		}
 		$this->plugin_name = 'jco-asciinema-player';
 
