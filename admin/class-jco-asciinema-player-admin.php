@@ -60,19 +60,7 @@ class Jco_Asciinema_Player_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_styles() {
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Jco_Asciinema_Player_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Jco_Asciinema_Player_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
+	public function register_styles() {
 
 		wp_register_style( $this->plugin_name, plugin_dir_url( __DIR__ ) . 'includes/asciinema-player/css/asciinema-player.css', array(), $this->version, 'all' );
 	}
@@ -82,23 +70,55 @@ class Jco_Asciinema_Player_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_scripts() {
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Jco_Asciinema_Player_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Jco_Asciinema_Player_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
+	public function register_scripts() {
 
 		wp_register_script( $this->plugin_name, plugin_dir_url( __DIR__ ) . 'includes/asciinema-player/js/asciinema-player.js', array(), $this->version, true );
 	}
+	/**
+	 * Register the JavaScript and CSS for the Gutenberg Blocks
+	 *
+	 * @since    1.0.0
+	 */
+	public function enqueue_block_assets() {
+		wp_enqueue_script( $this->plugin_name . '-block-editor', plugin_dir_url( __DIR__ ) . 'includes/asciinema-player/js/asciinema-player.js', array(), $this->version, true );
+		wp_enqueue_style( $this->plugin_name . '-block-editor', plugin_dir_url( __DIR__ ) . 'includes/asciinema-player/css/asciinema-player.css', array(), $this->version, 'all' );
+	}
 
+
+	/**
+	 * Register Gutenberg Block
+	 *
+	 */
+	public function register_asciinema_block() {
+		//Abort if Gutenberg doesn't exist
+		if ( ! function_exists( 'register_block_type' ) ) {
+			return;
+		}
+
+		wp_register_script( $this->plugin_name . '-block', plugin_dir_url( __FILE__ ) . 'js/jco-asciinema-player-block.js', array( 'wp-i18n', 'wp-blocks', 'wp-edit-post', 'wp-element', 'wp-editor', 'wp-components', 'wp-data', 'wp-plugins', 'wp-edit-post' ), $this->version );
+
+		register_block_type( 'jco-asciinema-player/asciinema-block', array(
+			'editor_script' => $this->plugin_name . '-block',
+			'render_callback' => array( $this, 'handle_asciinema_block_render' ),
+			'attributes' => array(
+				'type' => 'array',
+				'items' => 'string',
+				'id' => array(
+					'default' => 1,
+					'type' => 'string'
+				),
+				'posts' => array(
+					'type' => 'array',
+					'default' => array(),
+				),
+				'className' => array(
+					'type' => 'string',
+					'default' => ''
+				),
+			)
+		));
+
+	}
 	/**
 	 * Add the Shortcode
 	 */
@@ -124,8 +144,24 @@ class Jco_Asciinema_Player_Admin {
 			),
 			$atts
 		);
+		return $this->handle_asciinema_block_render( $attributes );
+
+	}
+
+	/**
+	 * Handle the Block Rendering
+	 *
+	 * @param $atts
+	 *
+	 * @return string
+	 */
+	public function handle_asciinema_block_render( $attributes ) {
+		if ( ! isset( $attributes['className'] ) ) {
+			$attributes['className'] = 'asciinema';
+		}
 		if ( function_exists('get_field')) {
 		$file = get_field('asciienma_file', $attributes['id']);
+
 		$playback_options = array(
 			"src" => $file['url'],
 			"cols" => get_field('columns', $attributes['id']),
@@ -142,8 +178,8 @@ class Jco_Asciinema_Player_Admin {
 			"font_size" => get_field('font_size', $attributes['id'])
 		);
 
-
-	$player_tag = "<asciinema-player src=\"{$playback_options['src']}\"
+		$player_tag = '<div class="' . $attributes['className'] . '">';
+		$player_tag .= "<asciinema-player src=\"{$playback_options['src']}\"
 					cols=\"{$playback_options['cols']}\"
 					rows=\"{$playback_options['rows']}\"
 					start-at=\"{$playback_options['start_at']}\"
@@ -151,26 +187,26 @@ class Jco_Asciinema_Player_Admin {
 					idle-time-limit=\"{$playback_options['idle_time_limit']}\"
 					font-size=\"{$playback_options['font_size']}\"
 					theme=\"{$playback_options['theme']}\" ";
-	if ($playback_options['autoplay']) {
-		$player_tag .= "autoplay=\"true\" ";
-	}
-	if ($playback_options['loop']) {
-		$player_tag .= "loop=\"true\" ";
-	}
-	if ($playback_options['poster_text']){
-		$player_tag .= "poster=data:text/plain,{$playback_options['poster_text']}\" ";
-	} else {
-		$player_tag .= "poster=npt:{$playback_options['poster_time']}\" ";
-	}
+					if ($playback_options['autoplay']) {
+						$player_tag .= "autoplay=\"true\" ";
+					}
+					if ($playback_options['loop']) {
+						$player_tag .= "loop=\"true\" ";
+					}
+					if ($playback_options['poster_text'] xor $playback_options['poster_type'] == 'Time'){
+						$player_tag .= "poster=data:text/plain,{$playback_options['poster_text']}\" ";
+					} else {
+						$player_tag .= "poster=npt:{$playback_options['poster_time']}\" ";
+					}
 
-	$player_tag .= "></asciinema-player>";
+			$player_tag .= "></asciinema-player>";
+			$player_tag .= "</div>";
 		return $player_tag;
 	} else {
 		return '<p>Asciinema posts are not loading correctly.</p>';
 	}
 
 	}
-
 
 	/**
 	 * Enable JSON uploads
@@ -245,7 +281,7 @@ class Jco_Asciinema_Player_Admin {
 			'label'                 => __( 'Asciinema Cast', 'jco' ),
 			'description'           => __( 'Asciinema casts are command line recordings.', 'jco' ),
 			'labels'                => $labels,
-			'supports'              => array( 'title', 'comments', 'custom-fields'),
+			'supports'              => array( 'title', 'comments', 'custom-fields' ),
 			'taxonomies'            => array( 'category', 'post_tag' ),
 			'hierarchical'          => false,
 			'public'                => true,
@@ -253,7 +289,7 @@ class Jco_Asciinema_Player_Admin {
 			'show_in_menu'          => 'upload.php',
 			'menu_position'         => 80,
 			'menu_icon'             => 'dashicons-welcome-view-site',
-			'show_in_admin_bar'     => false,
+			'show_in_admin_bar'     => true,
 			'show_in_nav_menus'     => false,
 			'can_export'            => true,
 			'has_archive'           => false,

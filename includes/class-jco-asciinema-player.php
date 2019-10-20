@@ -161,15 +161,18 @@ class Jco_Asciinema_Player {
 
 		$plugin_admin = new Jco_Asciinema_Player_Admin( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'register_styles' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'register_scripts' );
+		$this->loader->add_action( 'enqueue_block_assets', $plugin_admin, 'enqueue_block_assets' );
+
 
 		$this->loader->add_action( 'init', $plugin_admin, 'create_asciinema_post');
 		$this->loader->add_action( 'init', $plugin_admin, 'create_asciinema_shortcode' );
-
+		$this->loader->add_action( 'init', $plugin_admin, 'register_asciinema_block' );
 
 		$this->loader->add_filter( 'upload_mimes', $plugin_admin, 'add_json_mime',1, 1 );
 		$this->loader->add_filter( 'edit_form_after_title', $plugin_admin, 'add_shortcode_prompt', 1, 1 );
+
 
 
 	}
