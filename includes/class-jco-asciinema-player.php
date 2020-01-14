@@ -70,7 +70,7 @@ class Jco_Asciinema_Player {
 		if ( defined( 'JCO_ASCIINEMA_PLAYER_VERSION' ) ) {
 			$this->version = JCO_ASCIINEMA_PLAYER_VERSION;
 		} else {
-			$this->version = '1.0.7';
+			$this->version = '1.0.8';
 		}
 		$this->plugin_name = 'jco-asciinema-player';
 
@@ -160,11 +160,7 @@ class Jco_Asciinema_Player {
 	private function define_admin_hooks() {
 
 		$plugin_admin = new Jco_Asciinema_Player_Admin( $this->get_plugin_name(), $this->get_version() );
-
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'register_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'register_scripts' );
-		$this->loader->add_action( 'enqueue_block_assets', $plugin_admin, 'enqueue_block_assets' );
-
+		$this->loader->add_action( 'enqueue_block_editor_assets', $plugin_admin, 'enqueue_block_assets' );
 
 		$this->loader->add_action( 'init', $plugin_admin, 'create_asciinema_post');
 		$this->loader->add_action( 'init', $plugin_admin, 'create_asciinema_shortcode' );
@@ -187,9 +183,6 @@ class Jco_Asciinema_Player {
 	private function define_public_hooks() {
 
 		$plugin_public = new Jco_Asciinema_Player_Public( $this->get_plugin_name(), $this->get_version() );
-
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 		$this->loader->add_filter( 'single_template', $plugin_public, 'asciinema_display', 10 , 1);
 	}
 

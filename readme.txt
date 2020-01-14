@@ -5,7 +5,7 @@ Tags: media,cpt,asciinema,unix
 Requires PHP: 7.0
 Requires at least: 3.0.1
 Tested up to: 5.3.2
-Stable tag: 1.0.7
+Stable tag: 1.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 

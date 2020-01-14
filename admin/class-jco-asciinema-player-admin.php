@@ -134,13 +134,6 @@ class Jco_Asciinema_Player_Admin {
 	 * @return string
 	 */
 	public function handle_asciinema_shortcode( $atts ) {
-
-		if ( ! wp_script_is($this->plugin_name) ) {
-			wp_enqueue_script( $this->plugin_name );
-		}
-		if ( ! wp_style_is($this->plugin_name) ) {
-			wp_enqueue_style( $this->plugin_name );
-		}
 		// Attributes
 		$attributes = shortcode_atts(
 			array(
@@ -160,6 +153,9 @@ class Jco_Asciinema_Player_Admin {
 	 * @return string
 	 */
 	public function handle_asciinema_block_render( $attributes ) {
+		if ( !wp_script_is($this->plugin_name . '-block-editor')){
+			$this->enqueue_block_assets();
+		}
 		if ( ! isset( $attributes['className'] ) ) {
 			$attributes['className'] = 'asciinema';
 		}

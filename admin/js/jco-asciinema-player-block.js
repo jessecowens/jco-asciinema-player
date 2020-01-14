@@ -1,7 +1,7 @@
 const {registerBlockType} = wp.blocks; //Blocks API
 const {createElement} = wp.element; //React.createElement
 const {__} = wp.i18n; //translation functions
-const {InspectorControls} = wp.editor;
+const {InspectorControls} = wp.blockEditor;
 const {TextControl,SelectControl} = wp.components;
 const {ServerSideRender} = wp.editor;
 const {withSelect} = wp.data;
