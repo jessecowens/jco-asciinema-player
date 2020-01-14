@@ -2,7 +2,8 @@ const {registerBlockType} = wp.blocks; //Blocks API
 const {createElement} = wp.element; //React.createElement
 const {__} = wp.i18n; //translation functions
 const {InspectorControls} = wp.editor;
-const {TextControl,ServerSideRender,SelectControl} = wp.components;
+const {TextControl,SelectControl} = wp.components;
+const {ServerSideRender} = wp.editor;
 const {withSelect} = wp.data;
 const {compose} = wp.compose;
 
@@ -30,12 +31,11 @@ registerBlockType( 'jco-asciinema-player/asciinema-block', {
     const setAttributes =  props.setAttributes;
 
 
-    const AsciinemasDropdown = compose(
-      withSelect( function(select, props) {
+    const AsciinemasDropdown = withSelect( (select, props) => {
         return {
         posts: select( 'core' ).getEntityRecords( 'postType', 'jco_asciinema_post' )
         }
-      })(function( props ) {
+      })(( props ) => {
         var options = [];
         if( props.posts ) {
           options.push( {value: 0, label: 'Choose an Asciinema:' } );
@@ -52,7 +52,7 @@ registerBlockType( 'jco-asciinema-player/asciinema-block', {
         value: attributes.id
       })
     })
-  );
+
     function changeId(id){
       setAttributes({id});
     }

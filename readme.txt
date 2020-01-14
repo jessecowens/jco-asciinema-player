@@ -2,9 +2,10 @@
 Contributors: jessecowens
 Donate link: https://jco.dev/asciinema-player-for-wordpress/
 Tags: media,cpt,asciinema,unix
+Requires PHP: 7.0
 Requires at least: 3.0.1
-Tested up to: 5.2.2
-Stable tag: 1.0.6
+Tested up to: 5.3.2
+Stable tag: 1.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,6 +22,10 @@ site. Look for the "Asciinemas" option in your Media menu.
 * Activate the plugin through the Plugins menu in WordPress.
 
 == Changelog ==
+
+= 1.0.7 =
+* Fixed bug causing the JavaScript library to be loaded twice in some cases.
+* Fixed deprecated Gutenberg dependencies
 
 = 1.0.6 =
 * .json and .cast upload files are allowed for administrator users.
