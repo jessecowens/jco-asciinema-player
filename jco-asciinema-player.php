@@ -16,7 +16,7 @@
  * Plugin Name:       Asciinema Player
  * Plugin URI:        https://jco.dev
  * Description:       A Plugin To Host Asciinema Recordings. See the official <a href="https://asciinema.org/docs/installation">Asciinema site</a> for details on how to record terminal sessions
- * Version:           1.0.8
+ * Version:           1.0.9
  * Author:            Jesse C Owens
  * Author URI:        https://jessecowens.com
  * License:           GPL-2.0+
