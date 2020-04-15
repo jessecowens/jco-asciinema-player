@@ -5,7 +5,7 @@ Tags: media,cpt,asciinema,unix
 Requires PHP: 7.0
 Requires at least: 3.0.1
 Tested up to: 5.4
-Stable tag: 1.0.8
+Stable tag: 1.0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,7 +15,7 @@ Adds a custom media type for your own ASCIInemas- ASCII terminal recordings.
 
 This plugin will allow you to host your own ACSCIInema files on your WordPress site. Look for the "Asciinemas" option in your Media menu. Upload Asciinema recordings in .json, .cast, and .txt formats.
 
-You can embed your casts using a simple shortcode or using a block in the WordPress Editor. 
+You can embed your casts using a simple shortcode or using a block in the WordPress Editor.
 
 == Installation ==
 
