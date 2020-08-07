@@ -3,8 +3,8 @@ Contributors: jessecowens
 Donate link: https://jco.dev/asciinema-player-for-wordpress/
 Tags: media,cpt,asciinema,unix
 Requires PHP: 7.0
-Requires at least: 3.0.1
-Tested up to: 5.4
+Requires at least: 4.5
+Tested up to: 5.
 Stable tag: 1.0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
